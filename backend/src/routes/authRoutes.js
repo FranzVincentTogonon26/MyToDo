@@ -1,7 +1,9 @@
-import express from express;
+import express from 'express';
 import {body} from 'express-validator'
 
-const router = express.router();
+import { login, register } from '../controller/authController.js';
+
+const router = express.Router();
 
 // Validate middleware
 
