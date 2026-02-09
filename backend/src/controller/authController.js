@@ -60,6 +60,41 @@ export const login = async (req,res,next) => {
     }
 }
 
-export const register = () => {
+export const register = async (req,res,next) => {
+    try {
+        const { username, email, password } = req.body;
+        // Validate Fields
+        if(!username || !email || !password){
+            return res.status(401).json({
+                success: false,
+                message: 'Please provide Fields',
+                statusCode: 401
+            })
+        }
 
+        const user = await User.findOne({email});
+
+        if(user){
+            return res.status(400).json({
+                success: false,
+                message: 'User does not Exist',
+                statusCode: 400
+            })
+        }
+
+        // Create User
+        const creteUser = await User.create({
+            username, email, password
+        });
+
+        // Return Success
+        res.status(200).json({
+            success: true,
+            message: 'User Registered',
+            statusCode: 200
+        })
+
+    } catch (error) {
+        next(error)
+    }
 }
