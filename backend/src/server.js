@@ -7,6 +7,7 @@ import cors from 'cors';
 import connectDatabse from './config/db.js';
 import authRoutes from './routes/authRoutes.js'
 import noteRoutes from './routes/noteRoutes.js'
+import rateLimiter from './middleware/rateLimiter.js'
 
 const app = express();
 const PORT = process.env.PORT || 8000;  
@@ -21,6 +22,7 @@ app.use(
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(rateLimiter);
 
 // Routes
 app.use('/api/auth', authRoutes)
