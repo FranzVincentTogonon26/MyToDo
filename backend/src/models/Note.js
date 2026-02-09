@@ -3,11 +3,11 @@ import mongoose from "mongoose";
 const noteSchema = new mongoose.Schema({
     title: {
         type: String,
-        default: null
+        required: true
     },
-    description: {
+    content: {
         type: String,
-        default: null
+        required: true
     }
 }, {
     timestamps: true

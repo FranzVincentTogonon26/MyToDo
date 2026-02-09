@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import User from '../models/User';
+import User from '../models/User.js';
 
 const protectedRoutes = async (req,res,next) => {
     // Check if token exist in Authorization Header
