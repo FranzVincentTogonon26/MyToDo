@@ -64,7 +64,7 @@ export const register = async (req,res,next) => {
     try {
         const { username, email, password } = req.body;
         // Validate Fields
-        if(!username || !email || !password){
+        if(!username?.trim() || !email?.trim() || !password?.trim()){
             return res.status(401).json({
                 success: false,
                 message: 'Please provide Fields',

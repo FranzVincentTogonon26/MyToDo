@@ -6,6 +6,7 @@ import cors from 'cors';
 
 import connectDatabse from './config/db.js';
 import authRoutes from './routes/authRoutes.js'
+import noteRoutes from './routes/noteRoutes.js'
 
 const app = express();
 const PORT = process.env.PORT || 8000;  
@@ -23,6 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use('/api/auth', authRoutes)
+app.use('/api/notes', noteRoutes)
 
 
 connectDatabse().then( () => {
