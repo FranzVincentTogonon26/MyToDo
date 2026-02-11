@@ -16,7 +16,7 @@ export const login = async (req,res,next) => {
         if(!email || !password){
             return res.status(401).json({
                 success: false,
-                message: 'Please provide Email and Pawword',
+                message: 'Please provide Email and Password',
                 statusCode: 401
             });
         }

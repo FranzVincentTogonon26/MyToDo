@@ -1,4 +1,10 @@
 import { useAuth } from "./context/useAuth"
+import { Loader } from "lucide-react";
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router'
+import LoginPage from './pages/components/Authentication/LoginPage'
+import RegisterPage from './pages/components/Authentication/RegisterPage'
+import ProtectedRoutes from './pages/components/Authentication/ProtectedRoutes'
+import Notes from './pages/Note/Notes'
 
 
 function App() {
@@ -14,7 +20,19 @@ function App() {
   }
 
   return (
-    <div>Hello</div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={ isAuthenticated ? <Navigate to='/notes' replace /> : <Navigate to='/login' replace /> }  />
+        <Route path="/login" element={ <LoginPage /> } />
+        <Route path="/register" element={ <RegisterPage /> } />
+
+        {/* Protected Routes */}
+        <Route element={ <ProtectedRoutes /> }>
+          <Route path="/notes" element={ <Notes /> } />
+        </Route>
+
+      </Routes>
+    </BrowserRouter>
   )
 }
 

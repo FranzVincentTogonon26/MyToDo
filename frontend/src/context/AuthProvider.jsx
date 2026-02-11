@@ -31,12 +31,17 @@ export const AuthProvider = ({children}) => {
 
   const login = ( user, token ) => {
     localStorage.setItem('token', token);
-    localStorage.setItem('user', user)
+    localStorage.setItem('user', user);
+    setUser(user);
+    setIsAuthenticated(true);
   };
 
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    setUser(null);
+    setIsAuthenticated(false);
+    window.location.href = '/'
   }
 
   const value = {
