@@ -11,5 +11,8 @@ export const API_PATHS = {
         CREATE_NOTE: '/api/create',
         UPDATE_NOTE: (noteId) => `/api/${noteId}`,
         DELETE_NOTE: (noteId) => `/api/${noteId}`
+    },
+    CALENDAR: {
+        GET_CALENDAR: '/api/calendars'
     }
 }

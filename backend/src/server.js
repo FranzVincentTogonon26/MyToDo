@@ -7,6 +7,7 @@ import cors from 'cors';
 import connectDatabase from './config/db.js';
 import authRoutes from './routes/authRoutes.js'
 import noteRoutes from './routes/noteRoutes.js'
+import calendarRoutes from './routes/calendarRoutes.js'
 import rateLimiter from './middleware/rateLimiter.js'
 
 const app = express();
@@ -25,8 +26,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(rateLimiter);
 
 // Routes
-app.use('/api/auth', authRoutes)
-app.use('/api/notes', noteRoutes)
+app.use('/api/auth', authRoutes);
+app.use('/api/notes', noteRoutes);
+app.use('/api/calendars', calendarRoutes);
 
 
 connectDatabase().then( () => {

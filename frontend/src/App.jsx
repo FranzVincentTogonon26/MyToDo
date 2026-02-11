@@ -5,6 +5,7 @@ import LoginPage from './pages/components/Authentication/LoginPage'
 import RegisterPage from './pages/components/Authentication/RegisterPage'
 import ProtectedRoutes from './pages/components/Authentication/ProtectedRoutes'
 import Notes from './pages/Note/Notes'
+import Calendars from "./pages/Calendar/Calendars";
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
         {/* Protected Routes */}
         <Route element={ <ProtectedRoutes /> }>
           <Route path="/notes" element={ <Notes /> } />
+          <Route path="/calendars" element={ <Calendars /> } />
         </Route>
 
       </Routes>
