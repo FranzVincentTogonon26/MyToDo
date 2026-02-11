@@ -4,7 +4,7 @@ dotenv.config();
 import express from 'express';
 import cors from 'cors';
 
-import connectDatabse from './config/db.js';
+import connectDatabase from './config/db.js';
 import authRoutes from './routes/authRoutes.js'
 import noteRoutes from './routes/noteRoutes.js'
 import rateLimiter from './middleware/rateLimiter.js'
@@ -29,7 +29,7 @@ app.use('/api/auth', authRoutes)
 app.use('/api/notes', noteRoutes)
 
 
-connectDatabse().then( () => {
+connectDatabase().then( () => {
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);
     });
