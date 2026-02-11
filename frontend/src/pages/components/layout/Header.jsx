@@ -7,7 +7,7 @@ const Header = ({toggleSidebar}) => {
   const { user } = useAuth();
 
   return (
-   <header className='sticky top-0 z-40 w-full h-16 bg-white/80 backdrop-blur-xl border-b border-slate-200'>
+   <header className='sticky top-0 z-40 w-full h-16 '>
       <div className="flex items-center justify-between h-full px-6">
 
         {/* Mobile Menu Button */}
@@ -21,7 +21,7 @@ const Header = ({toggleSidebar}) => {
 
         {/* Header Title */}
         <div className="hidden md:block">
-            <h1 className="text-4xl font-bold block text-slate-800 tracking-tight">Sticky Wall</h1>
+            <h1 className="text-3xl font-bold tracking-tighter bg-linear-to-r from-slate-900 via-slate-600 to-indigo-500 inline-block text-transparent bg-clip-text">Sticky Wall</h1>
         </div>
 
         <div className="flex items-center gap-3">
@@ -34,7 +34,7 @@ const Header = ({toggleSidebar}) => {
             </div>
             <div>
               <p className="text-xs font-semibold text-slate-900">{user?.username || 'User'}</p>
-              <p className="text-xs text-slate-500">{user?.email || 'user_email.com'}</p>
+              <p className="text-xs text-slate-900">{user?.email || 'user_email.com'}</p>
             </div>
           </div>
 
