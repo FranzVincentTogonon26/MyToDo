@@ -77,7 +77,7 @@ export const register = async (req,res,next) => {
         if(user){
             return res.status(400).json({
                 success: false,
-                message: 'User does not Exist',
+                message: 'Email Already Exist',
                 statusCode: 400
             })
         }
