@@ -20,9 +20,7 @@ const Header = ({toggleSidebar}) => {
         </button>
 
         {/* Header Title */}
-        <div className="hidden md:block">
-            <h1 className="text-3xl font-bold tracking-tighter bg-linear-to-r from-slate-900 via-slate-600 to-indigo-500 inline-block text-transparent bg-clip-text">Sticky Wall</h1>
-        </div>
+        <div className="hidden md:block"></div>
 
         <div className="flex items-center gap-3">
           {/* User Profile */}

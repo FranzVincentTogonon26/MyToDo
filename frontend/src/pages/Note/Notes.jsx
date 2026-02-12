@@ -2,8 +2,11 @@ import React, {useEffect, useState} from 'react'
 import toast from "react-hot-toast";
 
 import noteService from '../../services/noteService';
+import { Loader, Plus, StickyNote } from 'lucide-react';
+
 import NoteCard from '../components/Note/NoteCard';
-import { CheckCheckIcon, Loader, Plus, StickyNote, Trash2Icon, X } from 'lucide-react';
+import CreateNote from '../components/Note/CreateNote';
+import DeleteNote from "../components/Note/DeleteNote";
 
 const Notes = () => {
 
@@ -12,6 +15,9 @@ const Notes = () => {
 
   // Add Note
   const [openModal, setOpenModal] = useState(false);
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [createNote, setCreateNote] = useState(false);
 
   // Deleting Note
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -31,7 +37,7 @@ const Notes = () => {
         setLoading(false);
       }
     }
-    fetchNotes();
+    fetchNotes().catch(console.error);
   }, []);
 
   const handleDeleteRequest = (note) => {
@@ -39,8 +45,25 @@ const Notes = () => {
     setIsDeleteModalOpen(true);
   }
 
-  const handleConfirmDelete = () => {
+  const handleCreateNote = async (e) => {
+    e.preventDefault();
+  }
 
+  const handleConfirmDelete = async () => {
+    if(!selectedNote) return;
+    setDeleting(true);
+    try {
+      await noteService.deleteNote(selectedNote._id);
+      toast.success('Deleting note.');
+      setSelectedNote(null);
+      setIsDeleteModalOpen(false);
+      setNotes(notes.filter( (prev) => prev._id !== selectedNote._id ));
+    } catch (error) {
+      console.log(error);
+      toast.error('Failed to delete note.');
+    } finally {
+      setDeleting(false);
+    }
   }
 
   const renderContent = () => {
@@ -74,7 +97,7 @@ const Notes = () => {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
         {
-          notes?.data.map((note, index) => (
+          notes?.map((note, index) => (
               <NoteCard 
                 key={index}
                 note={note}
@@ -82,81 +105,47 @@ const Notes = () => {
               />
           ))
         }
-        <div  className="group relative h-60 bg-white/80 backdrop-blur-xl border border-slate-200/60 rounded-lg p-5 text-slate-500 hover:text-slate-900 hover:border-slate-300/60 hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300 flex flex-col justify-between cursor-pointer hover:-translate-y-1" >
+        <button type='button' onClick={() => setOpenModal(true)}  className="group relative h-60 bg-white/80 backdrop-blur-xl border border-slate-200/60 rounded-lg p-5 text-slate-500 hover:text-slate-900 hover:border-slate-300/60 hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300 flex flex-col justify-between cursor-pointer hover:-translate-y-1" >
           <div className="flex items-center justify-center min-h-full">
               <div className="flex items-center gap-1.5 text-xs ">
                   <Plus className='size-16' strokeWidth={1} />
-              </div> 
+              </div>
           </div>
           <div className='absolute inset-0 rounded-xl bg-linear-to-br from-emerald-500/0 to-teal-500/0 group-hover:from-emerald-500/5 group-hover:to-teal-500/5 transition-all duration-300 pointer-events-none' />
-        </div>
+        </button>
       </div>
     )
   }
 
   return (
     <div className="min-h-screen">
-
+      <div className="absolute top-3 md:ml-0 ml-14 ">
+        <h1 className="text-3xl font-semibold tracking-tighter bg-slate-900  inline-block text-transparent bg-clip-text">Sticky Wall</h1>
+      </div>
       <div className="relative max-w-7xl mx-auto " >
         {renderContent()}
       </div>
 
+      {/* Create Note By Modal */}
+      <CreateNote
+          openModal={openModal}
+          setOpenModal={setOpenModal}
+          handleCreateNote={handleCreateNote}
+          title={title}
+          setTitle={setTitle}
+          content={content}
+          setContent={setContent}
+          createNote={createNote}
+      />
+
       {/* Modal Delete */}
-
-      { isDeleteModalOpen && ( 
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm">
-          <div className="relative w-full max-w-md bg-white/95 backdrop-blur-xl border border-slate-200/60 rounded-2xl shadow-2xl shadow-slate-900/20 p-8">
-  
-            {/* Close Button */}
-            <button 
-              onClick={() => setIsDeleteModalOpen(false)}
-              className="absolute top-6 right-6 w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-all duration-200"
-            >
-              <X className='w-5 h-5' strokeWidth={2} />
-            </button>
-
-            {/* Modal Header */}
-            <div className="mb-6">
-              <h2 className="text-xl font-medium text-slate-900 tracking-tight">Confirm Deletion</h2>
-            </div>
-
-            {/* Content */}
-            <p className="text-sm text-slate-600 mb-6">
-              Are you sure you want to delete {" "}
-              <span className="font-semibold text-slate-900 italic">{selectedNote?.title}</span>
-              ? This action cannot be undo.
-            </p>
-
-            {/* Action Buttons */}
-            <div className="flex gap-3">
-              <button 
-                className="flex-1 h-11 px-4 border-2 border-slate-200 rounded-xl bg-white text-slate-700 text-sm font-semibold hover:bg-slate-50 hover:border-slate-300 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-                type='button'
-                onClick={() => setIsDeleteModalOpen(false)}
-                disabled={deleting}
-              >
-                Cancel
-              </button>
-              <button 
-                className="flex-1 h-11 px-4 bg-linear-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white text-sm font-semibold rounded-xl transition-all duration-200 shadow-emerald-500/25 disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98]"
-                onClick={handleConfirmDelete}
-                disabled={deleting}
-              >
-                { deleting ? (
-                  <span className="flex items-center justify-center gap-2">
-                    <div className='w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin' />
-                    Deleting..
-                  </span>
-                ) : (
-                  "Delete"
-                ) }
-              </button>
-            </div>
-
-          </div>
-        </div> 
-        ) 
-      }
+      <DeleteNote
+          selectedNote={selectedNote}
+          isDeleteModalOpen={isDeleteModalOpen}
+          setIsDeleteModalOpen={setIsDeleteModalOpen}
+          handleConfirmDelete={handleConfirmDelete}
+          deleting={deleting}
+      />
 
     </div>
   )

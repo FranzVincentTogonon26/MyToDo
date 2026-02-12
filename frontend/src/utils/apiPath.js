@@ -7,10 +7,10 @@ export const API_PATHS = {
     },
     NOTES: {
         GET_ALL_NOTES: '/api/notes',
-        GET_NOTE_BY_ID: (noteId) =>  `/api/${noteId}`,
-        CREATE_NOTE: '/api/create',
-        UPDATE_NOTE: (noteId) => `/api/${noteId}`,
-        DELETE_NOTE: (noteId) => `/api/${noteId}`
+        CREATE_NOTE: '/api/notes/create',
+        GET_NOTE_BY_ID: (noteId) =>  `/api/notes/${noteId}`,
+        UPDATE_NOTE: (noteId) => `/api/notes/${noteId}`,
+        DELETE_NOTE: (noteId) => `/api/notes/${noteId}`
     },
     CALENDAR: {
         GET_CALENDAR: '/api/calendars'
