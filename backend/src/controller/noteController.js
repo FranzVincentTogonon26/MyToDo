@@ -18,14 +18,14 @@ export const getNoteById = async (req,res,next) => {
     try {
         // Validate Object
         if (!mongoose.Types.ObjectId.isValid(req.params.id)){
-            return res.status(404).json;({
+            return res.status(404).json({
                 success: false,
                 message: 'Note not Found..',
                 statusCode: 404
             })
         }
 
-        const note = await Note.findById({ _id: req.params.id });
+        const note = await Note.findById(req.params.id );
 
         if(!note){
             return res.status(404).json({
@@ -58,7 +58,7 @@ export const createNote = async (req,res,next) => {
         })
     }
 
-    const newNote = await Note({title,content});
+    const newNote = new Note({title,content});
 
     await newNote.save();
 
@@ -83,7 +83,14 @@ export const updateNoteById = async (req,res,next) => {
             })
         }
 
-        const updateNote = await Note.findByIdAndUpdate( req.params.id, { title, content } );
+        const updateNote = await Note.findByIdAndUpdate(
+            req.params.id,
+            { title, content },
+            {
+                returnDocument: 'after',
+                runValidators: true,
+            }
+        );
 
         if(!updateNote){
             return res.status(404).json({
@@ -114,7 +121,7 @@ export const deleteNoteById = async (req,res,next) => {
             })
         }
 
-        const note = await Note.findOneAndDelete({ _id:req.params.id });
+        const note = await Note.findByIdAndDelete(req.params.id );
 
         if(!note){
             return res.status(404).json({

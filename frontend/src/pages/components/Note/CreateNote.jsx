@@ -26,7 +26,7 @@ const CreateNote = ({
 
                 {/* Modal Header */}
                 <div className="mb-6">
-                    <h2 className="text-3xl font-medium text-slate-900 tracking-tight">New Note</h2>
+                    <h2 className="text-3xl font-medium text-slate-900 tracking-tighter">New Note</h2>
                 </div>
 
                 {/* Form */}
@@ -39,8 +39,7 @@ const CreateNote = ({
                             type="text"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
-                            required
-                            className="w-full h-12 px-4 border border-slate-200 rounded-lg bg-slate-50/50 text-slate-900 placeholder-slate-400 text-sm font-medium transition-all duration-200 focus:outline-none focus:border-slate-900 focus:bg-white focus:shadow-lg focus:shadow-slate-500/10"
+                            className="w-full h-11 px-4 border border-slate-200 rounded-lg bg-slate-50/50 text-slate-900 placeholder-slate-400 text-sm font-medium transition-all duration-200 focus:outline-none focus:border-slate-900 focus:bg-white focus:shadow-lg focus:shadow-slate-500/10"
                             placeholder='Title..'
                         />
                     </div>
@@ -51,8 +50,7 @@ const CreateNote = ({
                         <textarea
                             value={content}
                             onChange={(e) => setContent(e.target.value)}
-                            required
-                            rows={8}
+                            rows={6}
                             className="w-full p-4 border border-slate-200 rounded-lg bg-slate-50/50 text-slate-900 placeholder-slate-400 text-sm font-medium transition-all duration-200 focus:outline-none focus:border-slate-900 focus:bg-white focus:shadow-lg focus:shadow-slate-500/10"
                         />
                     </div>

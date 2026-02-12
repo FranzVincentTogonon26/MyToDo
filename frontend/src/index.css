@@ -6,3 +6,6 @@
     height: 70rem;
     max-height: 100vh;
 }
+.sx-react-calendar {
+    font-size: 1px !important;
+}

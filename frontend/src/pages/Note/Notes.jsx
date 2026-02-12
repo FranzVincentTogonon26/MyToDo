@@ -139,7 +139,7 @@ const Notes = () => {
 
   return (
     <div className="min-h-screen">
-      <div className="absolute top-3 md:ml-0 ml-14 ">
+      <div className="absolute top-3.5 md:ml-0 ml-14 ">
         <h1 className="text-3xl font-semibold tracking-tighter bg-slate-900  inline-block text-transparent bg-clip-text">Sticky Wall</h1>
       </div>
       <div className="relative max-w-7xl mx-auto " >

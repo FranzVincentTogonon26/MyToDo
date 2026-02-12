@@ -6,6 +6,7 @@ import RegisterPage from './pages/components/Authentication/RegisterPage'
 import ProtectedRoutes from './pages/components/Authentication/ProtectedRoutes'
 import Notes from './pages/Note/Notes'
 import Calendars from "./pages/Calendar/Calendars";
+import UpdateNote from "./pages/Note/UpdateNote.jsx";
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
         {/* Protected Routes */}
         <Route element={ <ProtectedRoutes /> }>
           <Route path="/notes" element={ <Notes /> } />
+          <Route path="/notes/:id" element={ <UpdateNote /> } />
           <Route path="/calendars" element={ <Calendars /> } />
         </Route>
 

@@ -20,7 +20,7 @@ export const login = async (req,res,next) => {
                 statusCode: 401
             });
         }
-        // Check user credenstials
+        // Check user credentials
         const user = await User.findOne({email}).select('+password');
         if(!user){
             return res.status(401).json({
@@ -30,7 +30,7 @@ export const login = async (req,res,next) => {
             })
         }
 
-        //  Check password macth
+        //  Check password match
         const passwordMatch = await user.matchPassword(password);
         if(!passwordMatch){
             return res.status(401).json({
