@@ -35,6 +35,7 @@ const UpdateNote = () => {
         }
         try {
             await noteService.updateNote( id, note );
+            toast.success('Note updated successfully.');
             navigate('/notes');
         } catch (error) {
             console.error(error);
