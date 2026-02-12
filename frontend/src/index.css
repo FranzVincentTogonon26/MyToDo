@@ -1,1 +1,8 @@
 @import "tailwindcss";
+
+.sx-react-calendar-wrapper {
+    width: 83rem;
+    max-width: 100vw;
+    height: 70rem;
+    max-height: 100vh;
+}

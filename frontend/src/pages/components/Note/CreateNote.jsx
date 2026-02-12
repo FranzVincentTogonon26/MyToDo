@@ -40,7 +40,7 @@ const CreateNote = ({
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
                             required
-                            className="w-full h-12 px-4 border border-slate-200 rounded-lg bg-slate-50/50 text-slate-900 placeholder-slate-400 text-sm font-medium transition-all duration-200 focus:outline-none focus:border-emerald-500 focus:bg-white focus:shadow-lg focus:shadow-emerald-500/10"
+                            className="w-full h-12 px-4 border border-slate-200 rounded-lg bg-slate-50/50 text-slate-900 placeholder-slate-400 text-sm font-medium transition-all duration-200 focus:outline-none focus:border-slate-900 focus:bg-white focus:shadow-lg focus:shadow-slate-500/10"
                             placeholder='Title..'
                         />
                     </div>
@@ -53,7 +53,7 @@ const CreateNote = ({
                             onChange={(e) => setContent(e.target.value)}
                             required
                             rows={8}
-                            className="w-full px-4 border border-slate-200 rounded-lg bg-slate-50/50 text-slate-900 placeholder-slate-400 text-sm font-medium transition-all duration-200 focus:outline-none focus:border-emerald-500 focus:bg-white focus:shadow-lg focus:shadow-emerald-500/10"
+                            className="w-full p-4 border border-slate-200 rounded-lg bg-slate-50/50 text-slate-900 placeholder-slate-400 text-sm font-medium transition-all duration-200 focus:outline-none focus:border-slate-900 focus:bg-white focus:shadow-lg focus:shadow-slate-500/10"
                         />
                     </div>
 

@@ -5,11 +5,20 @@ const getNotes = async () => {
     try {
         const response = await axiosInstance.get(API_PATHS.NOTES.GET_ALL_NOTES);
         return response.data?.data;
-        // return response?.data;
-
-
     } catch (error) {
         throw error.response?.data || { message: 'Failed to fetch Notes..' }
+    }
+}
+
+const createNote = async ( title, content ) => {
+    try {
+        const response = await axiosInstance.post(API_PATHS.NOTES.CREATE_NOTE, {
+            title,
+            content
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response?.data || { message: 'Failed to create note.' }
     }
 }
 
@@ -24,6 +33,7 @@ const deleteNote = async (id) => {
 
 const noteService = {
     getNotes,
+    createNote,
     deleteNote,
 }
 

@@ -10,6 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@schedule-x/calendar": "^4.1.0",
+    "@schedule-x/events-service": "^4.1.0",
+    "@schedule-x/react": "^4.1.0",
+    "@schedule-x/theme-default": "^4.1.0",
     "@tailwindcss/vite": "^4.1.18",
     "axios": "^1.13.5",
     "lucide-react": "^0.563.0",
@@ -17,7 +21,8 @@
     "react-dom": "^19.2.0",
     "react-hot-toast": "^2.6.0",
     "react-router": "^7.13.0",
-    "tailwindcss": "^4.1.18"
+    "tailwindcss": "^4.1.18",
+    "temporal-polyfill": "^0.3.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

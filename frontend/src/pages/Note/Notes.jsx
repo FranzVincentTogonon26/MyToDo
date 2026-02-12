@@ -7,6 +7,7 @@ import { Loader, Plus, StickyNote } from 'lucide-react';
 import NoteCard from '../components/Note/NoteCard';
 import CreateNote from '../components/Note/CreateNote';
 import DeleteNote from "../components/Note/DeleteNote";
+import NoteService from "../../services/noteService";
 
 const Notes = () => {
 
@@ -24,20 +25,21 @@ const Notes = () => {
   const [deleting, setDeleting] = useState(false);
   const [selectedNote, setSelectedNote] = useState(null);
 
-  useEffect(() => {
-    const fetchNotes = async () => {
-      setLoading(true);
-      try {
-        const data = await noteService.getNotes();
-        setNotes(data);
-      } catch (error) {
-        console.log(error);
-        toast.error('Failed to fetch notes.');
-      } finally {
-        setLoading(false);
-      }
+  const fetchNotes = async () => {
+    setLoading(true);
+    try {
+      const data = await noteService.getNotes();
+      setNotes(data);
+    } catch (error) {
+      console.log(error);
+      toast.error('Failed to fetch notes.');
+    } finally {
+      setLoading(false);
     }
-    fetchNotes().catch(console.error);
+  }
+
+  useEffect(() => {
+    void fetchNotes();
   }, []);
 
   const handleDeleteRequest = (note) => {
@@ -47,6 +49,24 @@ const Notes = () => {
 
   const handleCreateNote = async (e) => {
     e.preventDefault();
+    if(!title || !content) {
+      toast.error('All Fields are required');
+      return;
+    }
+    setCreateNote(true);
+    try {
+      await NoteService.createNote(title, content);
+      toast.success('Note created successfully');
+      void fetchNotes();
+      setOpenModal(false);
+      setTitle('');
+      setContent('');
+    } catch (error) {
+      console.log(error)
+      toast.error('Failed to create note.');
+    } finally {
+      setCreateNote(false);
+    }
   }
 
   const handleConfirmDelete = async () => {
